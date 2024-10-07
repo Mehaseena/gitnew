@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Place Order</title>
+</head>
+<body>
+    <h1>Place Your Order</h1>
+
+    <h2>User Information</h2>
+    <p>Name: {{ user.username }}</p>
+    <p>Email: {{ user.email }}</p>
+
+    <h2>Your Cart</h2>
+    <ul>
+        {% for item in cart_items %}
+            <li>{{ item.quantity }} x {{ item.product.name }} - ${{ item.product.price }}</li>
+        {% endfor %}
+    </ul>
+
+    <h2>Enter Shipping Address</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label for="address">Shipping Address:</label><br>
+        <textarea id="address" name="address" rows="4" cols="50">{{ existing_address }}</textarea><br>
+        <input type="submit" value="Place Order">
+    </form>
+
+    <a href="{% url 'product_list' %}">Continue Shopping</a>
+</body>
+</html>
